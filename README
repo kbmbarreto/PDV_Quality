@@ -1,31 +1,33 @@
-=============================================== 
-=============================================== 
-*************** LEIA-ME PRIMEIRO **************
-=============================================== 
------------------------------------------------
-INFORMAÇÕES DO FICHEIRO
------------------------------------------------
+# PDV Quality
 
-PDV_Quality
+<p>Projeto criado para automação de casos de teste de uma aplicação PDV em Windows Forms.</p>
 
-===============================================
-INFORMAÇÕES DOS ARQUIVOS
------------------------------------------------
+## Ferramentas utilizadas
 
-Projeto de automação do sistema PDV de uma 
-empresa. O projeto foi postado aqui apenas com 
-alguns códigos, pois, por ser um sistema propri
-etário, não será disponibilizado a público.
+- Csharp
+- NUnit
+- Selenium
+- Winnium Driver
 
-O projeto foi criado em C#, com Selenium,Winium 
-e Visual Studio.
+## Preparação do ambiente
+Para rodar o projeto, utlize a IDE que você mais se identifique **(no meu caso, utilizo o Visual Studio Community)**, em seguida, altere a classe **Tests.cs** para que o projeto se adeque a ao 
+executável **mais recente do PDV**:
 
-=============================================== 
-INFORMAÇÕES DO AUTOR
------------------------------------------------
-KLEBER BARRETO - CSKMACEDO
+**Trecho da classe que deve ser alterado**:
 
-CONTATO: KLEBER.BARRETO@MSN.COM
+````csharp
+    public class Tests
+    {
+        public static RemoteWebDriver Driver { get; set; }
 
-=============================================== 
-=============================================== 
+        [SetUp]
+        [Obsolete]
+        public void Setup()
+        {
+            var dc = new DesiredCapabilities();
+            dc.SetCapability("app", @"C:\PDV\PDV.UI.exe");
+            Driver = new RemoteWebDriver(new Uri("http://localhost:9999"), dc);
+        }
+````
+
+Em seguida, basta rodar a classe Tests.cs. Lembrando que este é apenas um projeto utilizado como modelo, tendo sua versão do PDV não disponibilizada pela empresa para detentora do mesmo, com este projeto servindo apenas como portfólio.
